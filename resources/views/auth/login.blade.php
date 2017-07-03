@@ -1,68 +1,252 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html class="hide-sidebar ls-bottom-footer" lang="en">
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>大众侃车</title>
+    
+    <!-- Vendor CSS BUNDLE
+    Includes styling for all of the 3rd party libraries used with this module, such as Bootstrap, Font Awesome and others.
+    TIP: Using bundles will improve performance by reducing the number of network requests the client needs to make when loading the page. -->
+    <link href="{{ URL::asset('css/vendor/all.css') }}" rel="stylesheet">
+    
+    <!-- Vendor CSS Standalone Libraries
+        NOTE: Some of these may have been customized (for example, Bootstrap).
+        See: src/less/themes/{theme_name}/vendor/ directory -->
+    <!-- <link href="css/vendor/bootstrap.css" rel="stylesheet"> -->
+    <!-- <link href="css/vendor/font-awesome.css" rel="stylesheet"> -->
+    <!-- <link href="css/vendor/picto.css" rel="stylesheet"> -->
+    <!-- <link href="css/vendor/material-design-iconic-font.css" rel="stylesheet"> -->
+    <!-- <link href="css/vendor/datepicker3.css" rel="stylesheet"> -->
+    <!-- <link href="css/vendor/jquery.minicolors.css" rel="stylesheet"> -->
+    <!-- <link href="css/vendor/railscasts.css" rel="stylesheet"> -->
+    <!-- <link href="css/vendor/owl.carousel.css" rel="stylesheet"> -->
+    <!-- <link href="css/vendor/slick.css" rel="stylesheet"> -->
+    <!-- <link href="css/vendor/daterangepicker-bs3.css" rel="stylesheet"> -->
+    <!-- <link href="css/vendor/jquery.bootstrap-touchspin.css" rel="stylesheet"> -->
+    <!-- <link href="css/vendor/select2.css" rel="stylesheet"> -->
+    <!-- <link href="css/vendor/jquery.countdown.css" rel="stylesheet"> -->
+    
+    <!-- APP CSS BUNDLE [css/app/app.css]
+    INCLUDES:
+        - The APP CSS CORE styling required by the "html" module, also available with main.css - see below;
+        - The APP CSS STANDALONE modules required by the "html" module;
+    NOTE:
+        - This bundle may NOT include ALL of the available APP CSS STANDALONE modules;
+          It was optimised to load only what is actually used by the "html" module;
+          Other APP CSS STANDALONE modules may be available in addition to what's included with this bundle.
+          See src/less/themes/html/app.less
+    TIP:
+        - Using bundles will improve performance by greatly reducing the number of network requests the client needs to make when loading the page. -->
+    <link href="{{ URL::asset('css/app/app.css') }}" rel="stylesheet">
+    
+    <!-- App CSS CORE
+    This variant is to be used when loading the separate styling modules -->
+    <!-- <link href="css/app/main.css" rel="stylesheet"> -->
+    
+    <!-- App CSS Standalone Modules
+    As a convenience, we provide the entire UI framework broke down in separate modules
+    Some of the standalone modules may have not been used with the current theme/module
+    but ALL modules are 100% compatible -->
+    
+    <!-- <link href="css/app/essentials.css" rel="stylesheet" /> -->
+    <!-- <link href="css/app/material.css" rel="stylesheet" /> -->
+    <!-- <link href="css/app/layout.css" rel="stylesheet" /> -->
+    <!-- <link href="css/app/sidebar.css" rel="stylesheet" /> -->
+    <!-- <link href="css/app/sidebar-skins.css" rel="stylesheet" /> -->
+    <!-- <link href="css/app/navbar.css" rel="stylesheet" /> -->
+    <!-- <link href="css/app/messages.css" rel="stylesheet" /> -->
+    <!-- <link href="css/app/media.css" rel="stylesheet" /> -->
+    <!-- <link href="css/app/charts.css" rel="stylesheet" /> -->
+    <!-- <link href="css/app/maps.css" rel="stylesheet" /> -->
+    <!-- <link href="css/app/colors-alerts.css" rel="stylesheet" /> -->
+    <!-- <link href="css/app/colors-background.css" rel="stylesheet" /> -->
+    <!-- <link href="css/app/colors-buttons.css" rel="stylesheet" /> -->
+    <!-- <link href="css/app/colors-text.css" rel="stylesheet" /> -->
+    
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries
+    WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!-- If you don't need support for Internet Explorer <= 8 you can safely remove these -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+<body class="login">
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
-                            </div>
-                        </div>
-                    </form>
+    <div id="content">
+    <div class="container-fluid">
+    
+      <div class="lock-container">
+        <div class="panel panel-default text-center paper-shadow" data-z="0.5">
+          <h1 class="text-display-1 text-center margin-bottom-none">登陆</h1>
+          <img src="/images/people/110/guy-5.jpg" class="img-circle width-80">
+          <div class="panel-body">
+            <form id="form-auth" class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
+                {{ csrf_field() }}
+                <input type="hidden" name="redirectURL" value="{{ $redirectURL }}">
+                
+                <div class="form-group">
+                  <div class="form-control-material">
+                    <input class="form-control" id="mobile" name="mobile" type="text" placeholder="输入账号">
+                    <label for="mobile">账号</label>
+                  </div>
                 </div>
-            </div>
+                <div class="form-group">
+                  <div class="form-control-material">
+                    <input class="form-control" id="password" name="password" type="password" placeholder="输入密码">
+                    <label for="password">密码</label>
+                  </div>
+                </div>
+            </form>
+            
+            <a href="javascript:$('#form-auth').submit();" id="form-login-submit" class="btn btn-primary">登陆 <i class="fa fa-fw fa-unlock-alt"></i></a>
+            <a href="{{ url('/password/reset') }}" class="forgot-password">忘记密码?</a>
+            <a href="{{ url('register') }}" class="link-text-color">注册</a>
+          </div>
         </div>
+      </div>
+    
     </div>
-</div>
-@endsection
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <strong>Learning</strong> v1.1.0 &copy; Copyright 2015
+    </footer>
+    <!-- // Footer -->
+    <!-- Inline Script for colors and config objects; used by various external scripts; -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
+    <script>
+    var colors = {
+      "danger-color": "#e74c3c",
+      "success-color": "#81b53e",
+      "warning-color": "#f0ad4e",
+      "inverse-color": "#2c3e50",
+      "info-color": "#2d7cb5",
+      "default-color": "#6e7882",
+      "default-light-color": "#cfd9db",
+      "purple-color": "#9D8AC7",
+      "mustard-color": "#d4d171",
+      "lightred-color": "#e15258",
+      "body-bg": "#f6f6f6"
+    };
+    var config = {
+      theme: "html",
+      skins: {
+        "default": {
+          "primary-color": "#42a5f5"
+        }
+      }
+    };
+    </script>
+  
+    <!-- Vendor Scripts Bundle
+    Includes all of the 3rd party JavaScript libraries above.
+    The bundle was generated using modern frontend development tools that are provided with the package
+    To learn more about the development process, please refer to the documentation.
+    Do not use it simultaneously with the separate bundles above. -->
+    <script src="{{ URL::asset('js/vendor/all.js') }}"></script>
+    
+    <!-- Vendor Scripts Standalone Libraries -->
+    <!-- <script src="js/vendor/core/all.js"></script> -->
+    <!-- <script src="js/vendor/core/jquery.js"></script> -->
+    <!-- <script src="js/vendor/core/bootstrap.js"></script> -->
+    <!-- <script src="js/vendor/core/breakpoints.js"></script> -->
+    <!-- <script src="js/vendor/core/jquery.nicescroll.js"></script> -->
+    <!-- <script src="js/vendor/core/isotope.pkgd.js"></script> -->
+    <!-- <script src="js/vendor/core/packery-mode.pkgd.js"></script> -->
+    <!-- <script src="js/vendor/core/jquery.grid-a-licious.js"></script> -->
+    <!-- <script src="js/vendor/core/jquery.cookie.js"></script> -->
+    <!-- <script src="js/vendor/core/jquery-ui.custom.js"></script> -->
+    <!-- <script src="js/vendor/core/jquery.hotkeys.js"></script> -->
+    <!-- <script src="js/vendor/core/handlebars.js"></script> -->
+    <!-- <script src="js/vendor/core/jquery.hotkeys.js"></script> -->
+    <!-- <script src="js/vendor/core/load_image.js"></script> -->
+    <!-- <script src="js/vendor/core/jquery.debouncedresize.js"></script> -->
+    <!-- <script src="js/vendor/core/modernizr.js"></script> -->
+    <!-- <script src="js/vendor/core/velocity.js"></script> -->
+    <!-- <script src="js/vendor/tables/all.js"></script> -->
+    <!-- <script src="js/vendor/forms/all.js"></script> -->
+    <!-- <script src="js/vendor/media/slick.js"></script> -->
+    <!-- <script src="js/vendor/charts/flot/all.js"></script> -->
+    <!-- <script src="js/vendor/nestable/jquery.nestable.js"></script> -->
+    <!-- <script src="js/vendor/countdown/all.js"></script> -->
+    <!-- <script src="js/vendor/angular/all.js"></script> -->
+    
+    <!-- App Scripts Bundle
+    Includes Custom Application JavaScript used for the current theme/module;
+    Do not use it simultaneously with the standalone modules below. -->
+    <script src="{{ URL::asset('js/app/app.js') }}"></script>
+    
+    <!-- App Scripts Standalone Modules
+    As a convenience, we provide the entire UI framework broke down in separate modules
+    Some of the standalone modules may have not been used with the current theme/module
+    but ALL the modules are 100% compatible -->
+    
+    <!-- <script src="js/app/essentials.js"></script> -->
+    <!-- <script src="js/app/material.js"></script> -->
+    <!-- <script src="js/app/layout.js"></script> -->
+    <!-- <script src="js/app/sidebar.js"></script> -->
+    <!-- <script src="js/app/media.js"></script> -->
+    <!-- <script src="js/app/messages.js"></script> -->
+    <!-- <script src="js/app/maps.js"></script> -->
+    <!-- <script src="js/app/charts.js"></script> -->
+    
+    <!-- App Scripts CORE [html]:
+        Includes the custom JavaScript for this theme/module;
+        The file has to be loaded in addition to the UI modules above;
+        app.js already includes main.js so this should be loaded
+        ONLY when using the standalone modules; -->
+    <!-- <script src="js/app/main.js"></script> -->
+
+</body>
+
+</html>
+
+
+
+<script type="text/javascript" src="{{ URL::asset('js/jquery.form.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/auth/jsonp_login.js') }}"></script>
+
+<script>
+	var is_logout = '{{ isset($logout)?$logout:'' }}';
+    var json_Sync = new json_Sync();
+								
+    $("#form-auth").on('submit', function() {
+        $(this).ajaxSubmit({
+        	dataType:'json',
+        	success: function(data) {
+            	//console.log(data);
+            	if(data.status == 1){
+            		json_Sync._secret = data._secret;
+            		json_Sync.details = data.details;
+            		json_Sync.redirectURL = data.redirectURL;
+            		json_Sync.url1 = data.url1;
+            		json_Sync.url2 = data.url2;
+
+         		    //执行jsonp请求 1
+            		json_Sync.jsonp1();
+            	}else{
+            	    alert(data.msg);
+            	}
+            }
+        });
+        
+        return false;
+    });
+
+    if(is_logout !== ''){
+    	json_Sync.url_logout1 = '{{ isset($url_logut1)?$url_logut1:'' }}';
+    	json_Sync.url_logout2 = '{{ isset($url_logut2)?$url_logut2:'' }}';
+
+    	json_Sync.jsonp_logout1();
+    }
+</script>
+
+
