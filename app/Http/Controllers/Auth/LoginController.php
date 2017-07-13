@@ -128,7 +128,7 @@ class LoginController extends Controller
     /**
      * 登出
      */
-    protected function logout()
+    public function logout()
     {
         Auth::logout();
     

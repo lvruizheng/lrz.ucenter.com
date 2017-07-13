@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,4 +40,6 @@ Route::group(['prefix' => 'profile', 'namespace' => 'Profile'], function(){
 });
 
 Route::auth();
+//get 登陆
+$this->get('logout', 'Auth\LoginController@logout')->name('logout');
 
