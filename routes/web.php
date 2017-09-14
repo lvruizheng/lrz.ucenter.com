@@ -37,6 +37,7 @@ Route::group(['prefix' => 'profile', 'namespace' => 'Profile'], function(){
     Route::any('/', 'ProfileController@index');
     Route::any('/profile','ProfileController@profile')->name('profile');
     Route::any('/eidt', 'ProfileController@proEdit');
+    Route::any('/inputfile', 'ProfileController@inputFile')->name('inputfile');
 });
 
 Route::auth();

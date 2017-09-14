@@ -105,7 +105,7 @@
                 </div>
             </form>
             
-            <a href="javascript:$('#form-auth').submit();" id="form-login-submit" class="btn btn-primary">登陆 <i class="fa fa-fw fa-unlock-alt"></i></a>
+            <a href="javascript:void(0)" id="form-login-submit" class="btn btn-primary">登陆 <i class="fa fa-fw fa-unlock-alt"></i></a>
             <a href="{{ url('/password/reset') }}" class="forgot-password">忘记密码?</a>
             <a href="{{ url('register') }}" class="link-text-color">注册</a>
           </div>
@@ -217,6 +217,10 @@
 <script>
 	var is_logout = '{{ isset($logout)?$logout:'' }}';
     var json_Sync = new json_Sync();
+
+    $("#form-login-submit").on('click',function(){
+    	$('#form-auth').submit();
+    })
 								
     $("#form-auth").on('submit', function() {
         $(this).ajaxSubmit({

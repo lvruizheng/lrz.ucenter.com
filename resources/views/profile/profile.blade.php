@@ -4,6 +4,11 @@
 @section('title','用户资料')
 
 @section('content')
+
+<style>
+	.loading{display:none;background:url("http://f7-preview.awardspace.com/zjmainstay.co.cc/jQueryExample/jquery_upload_image/files/ui-anim_basic_16x16.gif") no-repeat scroll 0 0 transparent;float: left;padding:8px;margin:18px 0 0 18px;}
+</style>
+
     <div class="container">
 
     <div class="page-section">
@@ -25,19 +30,32 @@
             <div class="tab-content">
 
               <div id="account" class=" tab-pane fade in active">
-                <form class="form-horizontal" method="POST" action="{{ url('/profile/eidt') }}">
+              
+                <form id="inputfileForm" action="{{ url('profile/inputfile') }}" method="POST" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    
+                </form>
+              
+                <form class="form-horizontal" method="POST" action="{{ url('/profile/eidt') }}" enctype="multipart/form-data">
                     {{ csrf_field() }}
                   <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">头像</label>
                     <div class="col-md-6">
                       <div class="media v-middle">
                         <div class="media-left">
-                          <div class="icon-block width-100 bg-grey-100">
-                            <i class="fa fa-photo text-light"></i>
+                          <div class="icon-block width-100 bg-grey-100" id="imagediv">
+                          
+                            @if (!$user->avatar)
+                                <i class="fa fa-photo text-light"></i>
+                            @else
+                                <img class="img-responsive" id="imageview" src="{{asset('/storage/app/uploads/'.$user->avatar)}}">
+                            @endif
+                            
                           </div>
                         </div>
                         <div class="media-body">
-                          <a href="#" class="btn btn-white btn-sm paper-shadow relative" data-z="0.5" data-hover-z="1" data-animated> 添加头像<i class="fa fa-upl"></i></a>
+                            <a href="javascript:void(0);" onclick="getElementById('inputfile').click()" class="btn btn-white btn-sm paper-shadow relative" data-z="0.5" data-hover-z="1" data-animated> 添加头像<i class="fa fa-upl"></i></a>
+                            <input type="file" multiple="multiple" id="inputfile" name="avatar" style="height:0;width:0;z-index: -1; position: absolute;left: 10px;top: 5px;"/>
                         </div>
                       </div>
                     </div>
@@ -436,3 +454,43 @@
 
   </div>
 @endsection
+
+@section('js')
+<script>
+    /*
+    $("#inputfile").change(function(){
+        $("#inputfileForm").submit();
+    });
+
+    $("#inputfileForm").on('submit', function() {
+
+    	$(this).ajaxSubmit({
+        	dataType:'json',
+        	success: function(data) {
+            	console.log(data);
+            	
+            }
+        });
+        
+        return false;
+    });
+    */
+
+    //*原理是把本地图片路径："D(盘符):/image/..."转为"http://..."格式路径来进行显示图片*/  
+    $("#inputfile").change(function(){
+    	var $file = $(this);  
+        var objUrl = $file[0].files[0];  
+        //获得一个http格式的url路径:mozilla(firefox)||webkit or chrome  
+        var windowURL = window.URL || window.webkitURL;  
+        //createObjectURL创建一个指向该参数对象(图片)的URL  
+        var dataURL;  
+        dataURL = windowURL.createObjectURL(objUrl);
+          
+        $("#imageview").attr("src",dataURL);
+        $("#imagediv i").hide();
+    });
+    
+</script>
+@endsection
+
+

@@ -326,6 +326,7 @@ WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!-- <script src="js/app/main.js"></script> -->
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{{ URL::asset('js/jquery.form.js') }}"></script>
   @yield('js')
   
   </body>
